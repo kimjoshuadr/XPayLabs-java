@@ -46,10 +46,8 @@ public class GenAddressTronTask {
 		CryptoAccount tronAccount = tronService.generateTronAccount();
 		AddressPool addressPool = new AddressPool();
 		addressPool.setAddress(tronAccount.getAddress());
-		byte[] key = SecureUtil.decode(pwd);
-		AES aes = SecureUtil.aes(key);
-		addressPool.setKeystore(aes.encryptHex(tronAccount.getPrivateKey()));
-		addressPool.setEncrypt(pwd);
+		addressPool.setKeystore(SecureUtils.encodePrivateKey(tronAccount.getPrivateKey()));
+		addressPool.setEncrypt("");
 		addressPool.setChain(chain);
 		addressPool.setUsed(AddressStatus.UNUSED);
 		addressPool.setType(AddressType.GENERAL);

@@ -53,8 +53,6 @@ public class EthService {
 		PrivateKeyEncrypt privateKeyEncrypt = new PrivateKeyEncrypt();
 		String pwd = IdUtil.simpleUUID();
 		privateKeyEncrypt.setEncrypt(pwd);
-		byte[] key = SecureUtil.decode(pwd);
-		AES aes = SecureUtil.aes(key);
 		try {
 			// 1. 转换私钥为 BigInteger
 			BigInteger privateKey = Numeric.toBigInt(hexPrivateKey);
@@ -63,7 +61,7 @@ public class EthService {
 			WalletFile walletFile = Wallet.createStandard(pwd,  keyPair);
 			String address = "0x" + walletFile.getAddress();
 			privateKeyEncrypt.setAddress(address);
-			String keystore = aes.encryptHex(JSONUtil.toJsonStr(walletFile));
+			String keystore = SecureUtils.encodePrivateKey(JSONUtil.toJsonStr(walletFile));
 			privateKeyEncrypt.setKeystore(keystore);
 			return privateKeyEncrypt;
 		} catch (CipherException e) {

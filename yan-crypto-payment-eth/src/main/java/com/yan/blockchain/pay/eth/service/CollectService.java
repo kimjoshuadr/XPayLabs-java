@@ -162,9 +162,7 @@ public class CollectService {
 	private String sendAssetToColdWallet(Merchant merchant, AssetType assetType,
 		GeneralColdAddress generalColdAddress, AddressPool userWallet, UserAddress userAddress, BigInteger amount) {
 
-		byte[] key = SecureUtil.decode(userWallet.getEncrypt());
-		AES aes = SecureUtil.aes(key);
-		String keystore = aes.decryptStr(userWallet.getKeystore());
+		String keystore = SecureUtils.decodePrivateKey(userWallet.getKeystore(), userWallet.getEncrypt());
 
 		Credentials credentials;
 		try {
@@ -200,9 +198,7 @@ public class CollectService {
 			return;
 		}
 
-		byte[] key = SecureUtil.decode(hotAddress.getEncrypt());
-		AES aes = SecureUtil.aes(key);
-		String keystore = aes.decryptStr(hotAddress.getKeystore());
+		String keystore = SecureUtils.decodePrivateKey(hotAddress.getKeystore(), hotAddress.getEncrypt());
 
 		Credentials credentials;
 		try {

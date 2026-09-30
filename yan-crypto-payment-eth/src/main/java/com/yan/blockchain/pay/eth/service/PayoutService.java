@@ -54,9 +54,7 @@ public class PayoutService {
 		BigInteger amount = AmountUtils.toAmount(order.getAmount(), assetType.getDecimals());
 		BigInteger ethBalance = ethService.getBalance(assetType.getChain(), generalHotAddress.getHotAddress());
 
-		byte[] key = SecureUtil.decode(generalHotAddress.getEncrypt());
-		AES aes = SecureUtil.aes(key);
-		String keystore = aes.decryptStr(generalHotAddress.getKeystore());
+		String keystore = SecureUtils.decodePrivateKey(generalHotAddress.getKeystore(), generalHotAddress.getEncrypt());
 
 		Credentials credentials;
 		try {

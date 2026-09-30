@@ -137,10 +137,8 @@ public class TronService {
 		PrivateKeyEncrypt privateKeyEncrypt = new PrivateKeyEncrypt();
 		privateKeyEncrypt.setAddress(getAddress(hexPrivateKey));
 		String pwd = IdUtil.simpleUUID();
-		privateKeyEncrypt.setEncrypt(pwd);
-		byte[] key = SecureUtil.decode(pwd);
-		AES aes = SecureUtil.aes(key);
-		String keystore = aes.encryptHex(hexPrivateKey);
+		privateKeyEncrypt.setEncrypt("");
+		String keystore = SecureUtils.encodePrivateKey(hexPrivateKey);
 		privateKeyEncrypt.setKeystore(keystore);
 		return privateKeyEncrypt;
 	}

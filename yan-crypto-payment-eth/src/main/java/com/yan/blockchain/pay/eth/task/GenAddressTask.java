@@ -58,9 +58,7 @@ public class GenAddressTask {
 
 			AddressPool addressPool = new AddressPool();
 			addressPool.setAddress(address);
-			byte[] key = SecureUtil.decode(pwd);
-			AES aes = SecureUtil.aes(key);
-			addressPool.setKeystore(aes.encryptHex(JSONUtil.toJsonStr(walletFile)));
+			addressPool.setKeystore(SecureUtils.encodePrivateKey(JSONUtil.toJsonStr(walletFile)));
 			addressPool.setEncrypt(pwd);
 			addressPool.setChain(chain);
 			addressPool.setUsed(AddressStatus.UNUSED);
